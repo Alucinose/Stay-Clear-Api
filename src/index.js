@@ -1,9 +1,12 @@
 //Importação do express
 const express = require('express')  //isso é uma dependencia
 const routes = require('./routes')  //você coloca "./" para dizer que é um arquivo
+require('./database')
+
 //Chamamos a função do express e definimos em uma constante
 const app = express()
 
+app.use(express.json())  //Express lidar com json
 app.use(routes)
 
 //4 métodos de http

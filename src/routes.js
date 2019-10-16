@@ -1,7 +1,20 @@
 const express = require('express')
-
+const User = require('./app/models/User')
 const routes = express.Router()
 
+/**
+ * GET = Trazer algo
+ * POST = Cadastrar algo
+ * PUT = Atualizar algo
+ * DELETE = Apagar algo
+ */
+
+routes.post('/users', async (req,res)=>{
+
+       const user = await User.create(req.body)
+
+       return res.json(user)
+})
 //Criamos uma rota para retornar json sobre o usuário
 routes.get('/users', (req, res)=>{
     return res.json(
