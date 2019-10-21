@@ -1,11 +1,42 @@
+const { Op } = require('sequelize')
 const User = require('../models/User')
 
 class UserController{
-    index() {} // GET => Me retorna todos os usuários
-    show() {} // GET => Me retorna somente UM usuário
+
+    // GET => Me retorna todos os usuários
+    async index(req,res) {
+        const users = await User.findAll( { where:
+        {
+            email : {
+                [Op.ne] : 'jmazeu@gmail.com'
+
+            }
+        }
+    })
+        return res.json(users)
+
+    } 
+
+    // GET => Me retorna somente UM usuário
+    show() {} 
    
     // POST => Criamos usuários
     async store(req,res) {
+
+        //Verificando se já existe uma conta com esse e-mail
+        const userExists = await User.findOne({ where: { email: req.body.email} });
+
+        //Se o usuário existir ele cai dentro do if
+        if(userExists){
+            return res.json({ error: "Usuário já existe"})
+        }
+
+        //Verifica se o usuario digitou uma senha de 6 caracteres
+        //123456 => 6
+        if(req.body.password.length < 5){
+            return res.json({ error: "Senha deve ter no mínimo 6 caracteres"})
+        }
+
         const user = await User.create(req.body)
         
         return res.json(user)

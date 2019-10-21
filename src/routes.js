@@ -5,7 +5,10 @@ const routes = express.Router()
 
 //Nossos controllers
 const UserController = require('./app/controllers/UserController')
+const AuthController = require('./app/controllers/AuthController')
 
+//Nossos middlewares
+const AuthMiddleware = require('./app/middlewares/AuthMiddleware')
 
 /**
  * MÉTODOS HTTP
@@ -17,7 +20,11 @@ const UserController = require('./app/controllers/UserController')
 
 //************* */ NOSSAS ROTAS*******************************
 
-routes.post('/users', UserController.store)
+routes.use(AuthMiddleware)
+
+routes.post('/auth', AuthController.store) //Rota de autenticação
+routes.get('/users', UserController.index) //Rota de retorno de usuários
+routes.post('/users', UserController.store) //Rota de cadastro de usuários
 
 //routes.post('/users', async (req,res)=>{
 
