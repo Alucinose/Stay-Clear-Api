@@ -20,11 +20,12 @@ const AuthMiddleware = require('./app/middlewares/AuthMiddleware')
 
 //************* */ NOSSAS ROTAS*******************************
 
+routes.post('/users', UserController.store) //Rota de cadastro de usuários
+routes.post('/auth', AuthController.store) //Rota de autenticação
+
 routes.use(AuthMiddleware)
 
-routes.post('/auth', AuthController.store) //Rota de autenticação
 routes.get('/users', UserController.index) //Rota de retorno de usuários
-routes.post('/users', UserController.store) //Rota de cadastro de usuários
 
 //routes.post('/users', async (req,res)=>{
 

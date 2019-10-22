@@ -7,9 +7,8 @@ class UserController{
     async index(req,res) {
         const users = await User.findAll( { where:
         {
-            email : {
-                [Op.ne] : 'jmazeu@gmail.com'
-
+            id : {
+                [Op.ne] : req.userId //'jmazeu@gmail.com' Substituimos o filtro de busca (Email<=== para ===> ID)
             }
         }
     })
@@ -18,7 +17,7 @@ class UserController{
     } 
 
     // GET => Me retorna somente UM usuário
-    show() {} 
+    //show() {} 
    
     // POST => Criamos usuários
     async store(req,res) {
