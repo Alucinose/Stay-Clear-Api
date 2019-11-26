@@ -2,12 +2,11 @@ const Sequelize = require('sequelize')
 const { Model } = require('sequelize')
 
 
-class Category extends Model{
+class Friend extends Model{
     static init(sequelize) {
         super.init({
-            profession: Sequelize.STRING,
-            description: Sequelize.STRING,
-         
+       id_usuario: Sequelize.INTEGER,
+       id_friend: Sequelize.INTEGER
         },
         {
             sequelize
@@ -19,4 +18,4 @@ class Category extends Model{
 
 
 
-module.exports = Category
+module.exports = Friend
